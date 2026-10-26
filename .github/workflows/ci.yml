@@ -1,0 +1,24 @@
+name: tests-calculadora
+on:
+ push:
+ branches:
+ - main
+ - development
+ - feature-tests
+ - feature-code
+ - 'impl-*'
+ pull_request:
+ branches: [feature-code, development, main]
+permissions:
+ contents: read
+jobs:
+ tests:
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v7
+ - uses: actions/setup-node@v7
+ with:
+ node-version: '24'
+ cache: npm
+ - run: npm ci
+ - run: npm test
